@@ -1,0 +1,1 @@
+import{a as r,E as o}from"./index-13ef8f77.js";const a=e=>r(o,{sx:{textAlign:"center",fontSize:"2rem",border:"2px solid dodgerblue",borderRadius:"10px",color:"black",fontWeight:"bold",p:2,mb:3},children:e.title});export{a as P};
