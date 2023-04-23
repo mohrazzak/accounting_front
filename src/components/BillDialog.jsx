@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
+import React, { useState, useEffect } from "react";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import MenuItem from "@mui/material/MenuItem";
 
 export default function BillDialog({
   title,
@@ -39,14 +39,14 @@ export default function BillDialog({
         id="outlined-multiline-flexible"
         label={`المبلغ للواحدة`}
         multiline
-        sx={{ mb: 2, width: 'calc(50% - .5rem)' }}
+        sx={{ mb: 2, width: "calc(50% - .5rem)" }}
       />,
       <TextField
         key={i}
         id="outlined-multiline-flexible"
         label={`القيمة للواحدة`}
         multiline
-        sx={{ mb: 2, width: 'calc(50% - .5rem)', marginLeft: '1rem' }}
+        sx={{ mb: 2, width: "calc(50% - .5rem)", marginLeft: "1rem" }}
       />,
       <TextField
         key={i}
@@ -73,8 +73,8 @@ export default function BillDialog({
       if (!dialog.editing)
         dispatchers.add({
           ...values,
-          value: parseInt(values.value),
-          values: parseInt(values.values),
+          value: parseFloat(values.value),
+          values: parseFloat(values.values),
           // invoice: (Math.floor(Math.random() * 91) + 10).toString(),
         });
       else {
@@ -110,14 +110,14 @@ export default function BillDialog({
   }, [productCount]);
 
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div style={{ textAlign: "center" }}>
       <form autoComplete="off">
         <Dialog
           open={dialog.status}
           onClose={formik.handleReset}
-          maxWidth={'xs'}
+          maxWidth={"xs"}
         >
-          <DialogTitle textAlign="center" sx={{ fontweight: 'bold' }}>
+          <DialogTitle textAlign="center" sx={{ fontweight: "bold" }}>
             {title}
           </DialogTitle>
           <DialogContent>
@@ -285,7 +285,7 @@ export default function BillDialog({
               <Button
                 onClick={() => setProductCount((oldState) => ++oldState)}
                 variant="contained"
-                sx={{ width: '10px' }}
+                sx={{ width: "10px" }}
               >
                 +
               </Button>
@@ -305,7 +305,7 @@ export default function BillDialog({
               color="success"
               variant="outlined"
             >
-              {dialog.editing ? 'تعديل' : 'انشاء'}
+              {dialog.editing ? "تعديل" : "انشاء"}
             </Button>
           </DialogActions>
         </Dialog>

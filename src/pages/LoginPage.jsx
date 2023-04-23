@@ -21,6 +21,8 @@ import { login } from '../store/auth';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import api from '../api';
+import Swal from 'sweetalert2';
 const theme = createTheme();
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -38,21 +40,18 @@ export default function SignIn() {
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
     setOpen(false);
   };
 
   const navigate = useNavigate();
+
   const dispatch = useDispatch();
-  const handleSubmit = (values) => {
-    if (values.password === '123') {
-      dispatch(login());
-      return <Alert severity="error">كلمة السر خاطئة</Alert>;
-    }
-    return setOpen(true);
+  const handleSubmit = async (values) => {
+    const a = await api.post('/auth/login',{  password:values.password  })
+    // console.log(a);
+
+    dispatch(login());
+
   };
 
   React.useEffect(() => {

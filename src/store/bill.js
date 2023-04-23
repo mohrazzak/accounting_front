@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../api';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import api from "../api";
 
 export const getBill = createAsyncThunk(
-  'bills/get',
+  "bills/get",
   async (payload, thunkAPI) => {
     try {
       const res = await api.get(`/bills/${payload}`);
@@ -14,14 +14,14 @@ export const getBill = createAsyncThunk(
   }
 );
 export const addBillItem = createAsyncThunk(
-  'bills/addOne',
+  "bills/addOne",
   async (payload, thunkAPI) => {
     try {
       const res = await api.post(
         `/bills/items/${payload.billId}?shop=${payload.shop ?? false}`,
         {
           ...payload.row,
-          count: parseInt(payload.row.count, 10),
+          count: parseFloat(payload.row.count, 10),
         }
       );
       return res.data;
@@ -31,7 +31,7 @@ export const addBillItem = createAsyncThunk(
   }
 );
 export const editBillItem = createAsyncThunk(
-  'bills/editOne',
+  "bills/editOne",
   async (payload, thunkAPI) => {
     try {
       const res = await api.put(
@@ -40,7 +40,7 @@ export const editBillItem = createAsyncThunk(
         }`,
         {
           ...payload.row,
-          count: parseInt(payload.row.count, 10),
+          count: parseFloat(payload.row.count, 10),
         }
       );
       return res.data;
@@ -50,7 +50,7 @@ export const editBillItem = createAsyncThunk(
   }
 );
 export const deleteBillItem = createAsyncThunk(
-  'bills/deleteOne',
+  "bills/deleteOne",
   async (payload, thunkAPI) => {
     try {
       console.log(payload);
@@ -65,7 +65,7 @@ export const deleteBillItem = createAsyncThunk(
 );
 
 export const billSlice = createSlice({
-  name: 'bills',
+  name: "bills",
   initialState: {
     data: {},
     isSuccess: false,

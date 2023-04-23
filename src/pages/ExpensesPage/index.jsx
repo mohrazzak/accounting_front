@@ -1,38 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import MyTable from '../../components/MyTable';
-import PageLayout from '../../components/PageLayout';
-import MyDialog from '../../components/MyDialog';
-import Box from '@mui/material/Box';
-import useTable from '../../hooks/useTable';
-import { useSelector } from 'react-redux';
-import * as Yup from 'yup';
-import { addCustomer, deleteCustomer, editCustomer } from '../../store/users';
-import { useDispatch } from 'react-redux';
-import PageHeading from '../../components/PageHeading';
+import React, { useEffect, useState } from "react";
+import MyTable from "../../components/MyTable";
+import PageLayout from "../../components/PageLayout";
+import MyDialog from "../../components/MyDialog";
+import Box from "@mui/material/Box";
+import useTable from "../../hooks/useTable";
+import { useSelector } from "react-redux";
+import * as Yup from "yup";
+import { addCustomer, deleteCustomer, editCustomer } from "../../store/users";
+import { useDispatch } from "react-redux";
+import PageHeading from "../../components/PageHeading";
 import {
   deleteDaily,
   deleteDailyRow,
   editDaily,
   editDailyRow,
   getDaily,
-} from '../../store/dailyRows';
-import CustomTableHeading from '../../components/CustomTableHeading';
+} from "../../store/dailyRows";
+import CustomTableHeading from "../../components/CustomTableHeading";
 
-const PAGE_TITLE = 'سحب';
+const PAGE_TITLE = "سحب";
 
 const DAILY_ROW_INTIAL_VALUE = {
-  userId: '',
-  billType: '',
-  id: '',
-  name: '',
+  userId: "",
+  billType: "",
+  id: "",
+  name: "",
   value: 0,
   values: 0,
-  note: '',
+  note: "",
 };
 
 const validationSchema = Yup.object({
-  value: Yup.number().required('يرجى كتابة المبلغ'),
-  values: Yup.number().required('يرجى كتابة قيمة المبلغ'),
+  value: Yup.number().required("يرجى كتابة المبلغ"),
+  values: Yup.number().required("يرجى كتابة قيمة المبلغ"),
   note: Yup.string(),
 });
 const ExpensesPage = () => {
@@ -41,7 +41,7 @@ const ExpensesPage = () => {
   );
   const dispatch = useDispatch();
   const dailyRows = useSelector((state) => state.dailyRows.data);
-  let rows = dailyRows.filter((row) => row.billType === 'مصروف');
+  let rows = dailyRows.filter((row) => row.billType === "مصروف");
   rows = rows.map((row) => ({
     name: row.User.name,
     billType: row.billType,
@@ -62,48 +62,48 @@ const ExpensesPage = () => {
     { value: 0, values: 0 }
   );
   const total = {
-    title: 'الاجمالي',
+    title: "الاجمالي",
     ...totalMoney,
   };
   const COLUMNS = [
     {
-      id: 'id',
-      label: 'رقم الفاتورة',
+      id: "id",
+      label: "رقم الفاتورة",
       minWidth: 80,
-      align: 'center',
+      align: "center",
       isField: false,
     },
     {
-      id: 'name',
-      label: 'اسم الحساب',
+      id: "name",
+      label: "اسم الحساب",
       minWidth: 80,
-      align: 'center',
+      align: "center",
       isField: false,
       isLink: true,
     },
     {
-      id: 'value',
-      label: 'المبلغ',
+      id: "value",
+      label: "المبلغ",
       minWidth: 50,
-      align: 'center',
+      align: "center",
       isField: true,
-      format: (value) => value.toLocaleString('en-US'),
+      format: (value) => value.toLocaleString("en-US"),
       isMoney: true,
     },
     {
-      id: 'values',
-      label: 'القيمة',
+      id: "values",
+      label: "القيمة",
       minWidth: 50,
-      align: 'center',
+      align: "center",
       isField: true,
-      format: (value) => value.toLocaleString('en-US'),
+      format: (value) => value.toLocaleString("en-US"),
       isMoney: true,
     },
     {
-      id: 'note',
-      label: 'ملاحظة',
+      id: "note",
+      label: "ملاحظة",
       minWidth: 120,
-      align: 'left',
+      align: "left",
       isField: true,
     },
   ];
@@ -111,8 +111,8 @@ const ExpensesPage = () => {
     edit: (editedRow) => {
       const formattedRow = {
         userId: editedRow.userId,
-        value: parseInt(editedRow.value, 10),
-        values: parseInt(editedRow.values, 10),
+        value: parseFloat(editedRow.value, 10),
+        values: parseFloat(editedRow.values, 10),
         billType: editedRow.billType,
         note: editedRow.note,
         id: editedRow.id,
