@@ -100,7 +100,6 @@ const AddShopInvoice = (props) => {
                 .required('يرجى تحديد عدد البضاعة'),
               value: number().required('يرجى كتابة المبلغ'),
               values: number()
-                .min(1, 'يرجى كتابة عدد اكبر من الصفر')
                 .required('يرجى كتابة القيمة'),
               note: string(),
             })
