@@ -1,116 +1,121 @@
-import React, { useState } from 'react';
-import MyTable from '../components/MyTable';
-import PageLayout from '../components/PageLayout';
-import MyDialog from '../components/MyDialog';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import useTable from '../hooks/useTable';
-import { useSelector } from 'react-redux';
-import * as Yup from 'yup';
+import React, { useState } from "react";
+import MyTable from "../components/MyTable";
+import PageLayout from "../components/PageLayout";
+import MyDialog from "../components/MyDialog";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import useTable from "../hooks/useTable";
+import { useSelector } from "react-redux";
+import * as Yup from "yup";
 // import { addCustomer, deleteCustomer, editCustomer } from '../store/users';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import {
   addProduct,
   deleteProduct,
   editProduct,
   getProducts,
-} from '../store/products';
-import Logs from '../components/Logs';
-import PageHeading from '../components/PageHeading';
-import TableSubHeader from '../components/TableSubHeader';
-import LogsTable from '../components/LogsTable';
-import { useEffect } from 'react';
-const PAGE_TITLE = 'المستودع';
+} from "../store/products";
+import Logs from "../components/Logs";
+import PageHeading from "../components/PageHeading";
+import TableSubHeader from "../components/TableSubHeader";
+import LogsTable from "../components/LogsTable";
+import Table from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableBody from "@mui/material/TableBody";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
+import { useEffect } from "react";
+const PAGE_TITLE = "المستودع";
 const COLUMNS = [
   {
-    id: 'id',
-    label: 'رقم المنتج',
+    id: "id",
+    label: "رقم المنتج",
     minWidth: 80,
-    align: 'center',
+    align: "center",
     isField: false,
   },
   {
-    id: 'modelId',
-    label: 'رقم الموديل',
+    id: "modelId",
+    label: "رقم الموديل",
     minWidth: 80,
-    align: 'center',
+    align: "center",
     isField: true,
   },
   {
-    id: 'name',
-    label: 'اسم المنتج',
+    id: "name",
+    label: "اسم المنتج",
     minWidth: 150,
-    align: 'left',
+    align: "left",
     isField: true,
     required: true,
   },
   {
-    id: 'count',
-    label: 'العدد',
+    id: "count",
+    label: "العدد",
     minWidth: 100,
-    align: 'center',
+    align: "center",
     isField: true,
     required: true,
   },
   {
-    id: 'values',
-    label: 'القيمة للواحدة',
+    id: "values",
+    label: "القيمة للواحدة",
     minWidth: 100,
-    align: 'center',
+    align: "center",
     isField: true,
     isPrice: true,
   },
   {
-    id: 'value',
-    label: 'المبلغ للواحدة',
+    id: "value",
+    label: "المبلغ للواحدة",
     minWidth: 100,
-    align: 'center',
+    align: "center",
     isField: true,
     isPrice: true,
   },
   {
-    id: 'colors',
-    label: 'الألوان',
+    id: "colors",
+    label: "الألوان",
     minWidth: 100,
-    align: 'center',
+    align: "center",
     isField: true,
     // required: true,
   },
   {
-    id: 'sizes',
-    label: 'المقاسات',
+    id: "sizes",
+    label: "المقاسات",
     minWidth: 100,
-    align: 'center',
+    align: "center",
     isField: true,
     // required: true,
   },
   {
-    id: 'note',
-    label: 'ملاحظة',
+    id: "note",
+    label: "ملاحظة",
     minWidth: 100,
-    align: 'center',
+    align: "center",
     isField: true,
   },
 ];
 
 const DAILY_ROW_INTIAL_VALUE = {
-  id: '',
-  modelId: '',
-  name: '',
-  count: '',
-  value: '',
-  values: '',
-  note: '',
-  sizes: '',
-  colors: '',
+  id: "",
+  modelId: "",
+  name: "",
+  count: "",
+  value: "",
+  values: "",
+  note: "",
+  sizes: "",
+  colors: "",
 };
 
 const validationSchema = Yup.object({
-  name: Yup.string().required('يرجى إدخال اسم المنتج'),
+  name: Yup.string().required("يرجى إدخال اسم المنتج"),
   modelId: Yup.string(),
-  count: Yup.number().required('يرجى إدخال الكمية المتاحة'),
-  value: Yup.number().required('يرجى إدخال مبلغ القطعة الواحدة'),
-  values: Yup.number().required('يرجى إدخال قيمة القطعة الواحدة'),
+  count: Yup.number().required("يرجى إدخال الكمية المتاحة"),
+  value: Yup.number().required("يرجى إدخال مبلغ القطعة الواحدة"),
+  values: Yup.number().required("يرجى إدخال قيمة القطعة الواحدة"),
   note: Yup.string(),
   colors: Yup.string(),
   sizes: Yup.string(),
@@ -128,7 +133,11 @@ const ShopsPage = () => {
     edit: (editedProd) => dispatch(editProduct(editedProd)),
     delete: (prodId) => dispatch(deleteProduct(prodId)),
   };
-
+  const total = rows.reduce((acc, cur) => {
+    const values = cur.values || 0;
+    const count = cur.count || 0;
+    return acc + values * count;
+  }, 0);
   useEffect(() => {
     dispatch(getProducts());
   }, []);
@@ -149,10 +158,10 @@ const ShopsPage = () => {
         <Button
           variant="contained"
           sx={{
-            height: '60px',
-            margin: '2rem auto',
-            display: 'block',
-            width: '50%',
+            height: "60px",
+            margin: "2rem auto",
+            display: "block",
+            width: "50%",
           }}
           color="error"
           onClick={handleOpenAddDialog}
@@ -179,6 +188,34 @@ const ShopsPage = () => {
         validationSchema={validationSchema}
         dispatchers={dispatchers}
       />
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell colSpan={6} sx={{ fontSize: "1.2rem", width: "100%" }}>
+              القيمة الكلية
+            </TableCell>
+            <TableCell
+              colSpan={6}
+              sx={{
+                color: "green",
+                fontWeight: "bold",
+                fontSize: "1.2rem",
+                width: "100%",
+              }}
+            >
+              <Typography
+                style={{
+                  direction: "ltr",
+                  fontWeight: "bold",
+                  color: "green",
+                }}
+              >
+                {total}
+              </Typography>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </PageLayout>
   );
 };

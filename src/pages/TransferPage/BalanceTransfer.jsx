@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import PageLayout from "../components/PageLayout";
-import TableSubHeader from "../components/TableSubHeader";
+import PageLayout from "../../components/PageLayout";
+import TableSubHeader from "../../components/TableSubHeader";
 import Box from "@mui/material/Box";
 import { number, object, string } from "yup";
 import { Field, Form, Formik, useFormikContext } from "formik";
@@ -13,9 +13,9 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Swal from "sweetalert2";
-import api from "../api";
+import api from "../../api";
 
-const TransferPage = () => {
+const BalanceTransfer = () => {
   const [valueToValues, setValueToValues] = useState(true);
   useEffect(() => {}, []);
   return (
@@ -60,6 +60,8 @@ const TransferPage = () => {
             }
             console.log(values);
             await api.post("/bills/transfer", values);
+            Swal.fire("تمت العملية", "تم التحويل بنجاح", "success");
+            resetForm();
             setSubmitting(false);
           }}
           enableReinitialize={true}
@@ -227,107 +229,4 @@ const TransferPage = () => {
   );
 };
 
-export default TransferPage;
-// <Box>
-//   <Formik
-//     initialValues={{
-//       value: 0,
-//       values: 0,
-//       price: 0,
-//       valueToValues: false,
-//     }}
-//     validationSchema={object({
-//       value: number().required('يرجى كتابة المبلغ المراد تحويله'),
-//       values: number().required('يرجى كتابة القيمة المراد تحويلها'),
-//       price: number().required('يرجى كتابة السعر للواحدة'),
-//     })}
-//     onSubmit={(values) => {
-//       console.log(values);
-//     }}
-//   >
-//     {({ values, isSubmitting }) => (
-//       <Form autoComplete="off">
-//         <Grid container>
-//           <Grid
-//             item
-//             sx={{
-//               display: 'flex',
-//               justifyContent: 'center',
-//               width: '100%',
-//               alignItems: 'center',
-//               mb: 3,
-//             }}
-//           >
-//             <Typography mx={2}>
-//               {values.valueToValues
-//                 ? 'من المبلغ للقيمة'
-//                 : 'من القيمة للمبلغ'}
-//             </Typography>
-//             <Field
-//               type={'checkbox'}
-//               name={'valueToValues'}
-//               component={Switch}
-//               label={`من المبلغ للقيمة`}
-//               color="success"
-//             />
-//           </Grid>
-//           <Grid item sx={{ width: '100%' }}>
-//             <Field
-//               name={'price'}
-//               component={TextField}
-//               label={`السعر للواحدة`}
-//               fullWidth
-//               sx={{ mb: 3 }}
-//             />
-//           </Grid>
-//           <Grid item sx={{ width: '100%' }}>
-//             <Field
-//               name={`values`}
-//               component={TextField}
-//               label={'القيمة'}
-//               fullWidth
-//               value={
-//                 values.valueToValues
-//                   ? values.values / values.price || 0
-//                   : values.values
-//               }
-//               sx={{ mb: 3 }}
-//             />
-//           </Grid>
-//           <Grid item sx={{ width: '100%' }}>
-//             <Field
-//               name={`value`}
-//               component={TextField}
-//               fullWidth
-//               value={
-//                 values.valueToValues
-//                   ? values.value
-//                   : values.price * values.values || 0
-//               }
-//               label={'المبلغ'}
-//               sx={{ mb: 3 }}
-//             />
-//           </Grid>
-
-//           <Grid item sx={{ direction: 'rtl', width: '100%' }}>
-//             <Button
-//               variant="contained"
-//               color="success"
-//               sx={{ p: 2, mt: 3 }}
-//               type="submit"
-//               disabled={isSubmitting}
-//               fullWidth
-//               startIcon={
-//                 isSubmitting && (
-//                   <CircularProgress size={'1rem'} sx={{ ml: 2 }} />
-//                 )
-//               }
-//             >
-//               {isSubmitting ? 'جاري الانشاء' : 'التحويل'}
-//             </Button>
-//           </Grid>
-//         </Grid>
-//       </Form>
-//     )}
-//   </Formik>
-// </Box>;
+export default BalanceTransfer;

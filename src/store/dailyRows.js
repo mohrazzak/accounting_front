@@ -1,11 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../api';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import api from "../api";
 
 export const getDaily = createAsyncThunk(
-  'dailyRows/get',
+  "dailyRows/get",
   async (payload, thunkAPI) => {
     try {
-      let queryString = '';
+      let queryString = "";
 
       if (payload?.all) {
         queryString += `&all=${payload.all}`;
@@ -19,6 +19,12 @@ export const getDaily = createAsyncThunk(
         queryString += `&isDaily=${payload.isDaily}`;
       }
 
+      if (payload?.date) {
+        queryString += `&year=${payload.date.year}`;
+        queryString += `&month=${payload.date.month}`;
+        queryString += `&day=${payload.date.day}`;
+      }
+
       const res = await api.get(`/daily?${queryString}`);
       return res.data;
     } catch (error) {
@@ -28,10 +34,10 @@ export const getDaily = createAsyncThunk(
 );
 
 export const addDaily = createAsyncThunk(
-  'dailyRows/add',
+  "dailyRows/add",
   async (payload, thunkAPI) => {
     try {
-      const res = await api.post('/daily', payload);
+      const res = await api.post("/daily", payload);
       return res.data;
     } catch (error) {
       throw error;
@@ -40,7 +46,7 @@ export const addDaily = createAsyncThunk(
 );
 
 export const editDaily = createAsyncThunk(
-  'dailyRows/edit',
+  "dailyRows/edit",
   async (payload, thunkAPI) => {
     try {
       const res = await api.put(`/daily/${payload.id}`, payload);
@@ -52,7 +58,7 @@ export const editDaily = createAsyncThunk(
 );
 
 export const deleteDaily = createAsyncThunk(
-  'dailyRows/delete',
+  "dailyRows/delete",
   async (payload, thunkAPI) => {
     try {
       const res = await api.delete(`/daily/${payload}`);
@@ -64,7 +70,7 @@ export const deleteDaily = createAsyncThunk(
 );
 
 export const counterSlice = createSlice({
-  name: 'dailyRows',
+  name: "dailyRows",
   initialState: {
     data: [],
     today: { value: 0, values: 0 },
@@ -133,7 +139,7 @@ export const counterSlice = createSlice({
         state.data = state.data.filter(
           (row) => row.id !== action.payload.data.bill.id
         );
-        if (action.payload.data.bill.billType === 'ادخال') {
+        if (action.payload.data.bill.billType === "ادخال") {
           state.today.value -= action.payload.data.bill.value;
           state.today.values -= action.payload.data.bill.values;
         } else {

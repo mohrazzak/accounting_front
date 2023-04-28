@@ -1,60 +1,62 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
-const ErrorPage = lazy(() => import('./pages/others/ErrorPage'));
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { lazy, Suspense } from "react";
+const ErrorPage = lazy(() => import("./pages/others/ErrorPage"));
 
-import { CacheProvider } from '@emotion/react';
-const CircularProgress = lazy(() => import('@mui/material/CircularProgress'));
+import { CacheProvider } from "@emotion/react";
+const CircularProgress = lazy(() => import("@mui/material/CircularProgress"));
 
-const Root = lazy(() => import('./pages/others/Root'));
+const Root = lazy(() => import("./pages/others/Root"));
 
-import createTheme from '@mui/material/styles/createTheme';
-import ThemeProvider from '@mui/material/styles/ThemeProvider';
-import store from './store/index';
-import { Provider } from 'react-redux';
-const HomePage = lazy(() => import('./pages/HomePage'));
-const DailyPage = lazy(() => import('./pages/DailyPage'));
-const ExpensesPage = lazy(() => import('./pages/ExpensesPage'));
-const MonthlyInventoryPage = lazy(() => import('./pages/MonthlyInventoryPage'));
-const StoragePage = lazy(() => import('./pages/StoragePage'));
-const WithdrawalsPage = lazy(() => import('./pages/WithDrawalsPage'));
-const CustomersPage = lazy(() => import('./pages/CustomersPage'));
-const CustomerPage = lazy(() => import('./pages/CustomersPage/CustomerPage'));
-import createCache from '@emotion/cache';
-import { prefixer } from 'stylis';
-import rtlPlugin from 'stylis-plugin-rtl';
-import TransferPage from './pages/TransferPage';
-const PartnersPage = lazy(() => import('./pages/PartnersPage'));
-const PrivateRoute = lazy(() => import('./components/PrivateRoute'));
-const ShopInvoice = lazy(() => import('./pages/Shops/Shop/ShopInvoice'));
+import createTheme from "@mui/material/styles/createTheme";
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
+import store from "./store/index";
+import { Provider } from "react-redux";
+const HomePage = lazy(() => import("./pages/HomePage"));
+const DailyPage = lazy(() => import("./pages/DailyPage"));
+const ExpensesPage = lazy(() => import("./pages/ExpensesPage"));
+const MonthlyInventoryPage = lazy(() => import("./pages/MonthlyInventoryPage"));
+const StoragePage = lazy(() => import("./pages/StoragePage"));
+const WithdrawalsPage = lazy(() => import("./pages/WithDrawalsPage"));
+const CustomersPage = lazy(() => import("./pages/CustomersPage"));
+const CustomerPage = lazy(() => import("./pages/CustomersPage/CustomerPage"));
+import createCache from "@emotion/cache";
+import { prefixer } from "stylis";
+import rtlPlugin from "stylis-plugin-rtl";
+import TransferPage from "./pages/TransferPage";
+import BillsTransfer from "./pages/TransferPage/BillsTransfer";
+import BalanceTransfer from "./pages/TransferPage/balanceTransfer";
+const PartnersPage = lazy(() => import("./pages/PartnersPage"));
+const PrivateRoute = lazy(() => import("./components/PrivateRoute"));
+const ShopInvoice = lazy(() => import("./pages/Shops/Shop/ShopInvoice"));
 const CustomerInvoice = lazy(() =>
-  import('./pages/CustomersPage/CustomerPage/CustomerInvoice')
+  import("./pages/CustomersPage/CustomerPage/CustomerInvoice")
 );
 const AddCustomerInvoice = lazy(() =>
-  import('./pages/CustomersPage/CustomerPage/AddCustomerInvoice')
+  import("./pages/CustomersPage/CustomerPage/AddCustomerInvoice")
 );
-const ShopsPage = lazy(() => import('./pages/Shops'));
-const ShopPage = lazy(() => import('./pages/Shops/Shop'));
+const ShopsPage = lazy(() => import("./pages/Shops"));
+const ShopPage = lazy(() => import("./pages/Shops/Shop"));
 const AddShopInvoice = lazy(() =>
-  import('./pages/Shops/Shop/AddShopInvoice.jsx')
+  import("./pages/Shops/Shop/AddShopInvoice.jsx")
 );
-const Login = lazy(() => import('./pages/LoginPage'));
-const ExpensePage = lazy(() => import('./pages/ExpensesPage/ExpensePage'));
+const Login = lazy(() => import("./pages/LoginPage"));
+const ExpensePage = lazy(() => import("./pages/ExpensesPage/ExpensePage"));
 const WithDrawalPage = lazy(() =>
-  import('./pages/WithDrawalsPage/WithDrawalPage')
+  import("./pages/WithDrawalsPage/WithDrawalPage")
 );
-const PartnerPage = lazy(() => import('./pages/PartnersPage/PartnerPage'));
+const PartnerPage = lazy(() => import("./pages/PartnersPage/PartnerPage"));
 
 // Create rtl cache
 const cacheRtl = createCache({
-  key: 'muirtl',
+  key: "muirtl",
   stylisPlugins: [prefixer, rtlPlugin],
 });
 
 const theme = createTheme({
   typography: {
-    fontFamily: ['Droid Arabic Naskh', 'sans-serif'].join(','),
+    fontFamily: ["Droid Arabic Naskh", "sans-serif"].join(","),
   },
-  direction: 'rtl',
+  direction: "rtl",
 });
 
 function App() {
@@ -63,10 +65,10 @@ function App() {
       fallback={
         <div
           style={{
-            height: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <CircularProgress />
@@ -205,6 +207,22 @@ function App() {
                     element={
                       <PrivateRoute>
                         <TransferPage />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/transfer/balance"
+                    element={
+                      <PrivateRoute>
+                        <BalanceTransfer />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/transfer/bills"
+                    element={
+                      <PrivateRoute>
+                        <BillsTransfer />
                       </PrivateRoute>
                     }
                   />

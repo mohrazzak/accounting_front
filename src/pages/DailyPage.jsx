@@ -39,6 +39,20 @@ const DailyPage = () => {
     (state) => state.dailyRows
   );
 
+  const [date, setDate] = useState(new Date());
+  const currentDate = date || Date.now();
+  var selectedDate = new Date(currentDate);
+
+  const reduceDateHandler = () => {
+    const oneDay = 24 * 60 * 60 * 1000; // one day in milliseconds
+    const newDate = new Date(date.getTime() - oneDay);
+    setDate(newDate);
+  };
+  const increaseDateHandler = () => {
+    const oneDay = 24 * 60 * 60 * 1000; // one day in milliseconds
+    const newDate = new Date(date.getTime() + oneDay);
+    setDate(newDate);
+  };
   const users = useSelector((state) => state.users);
   const formattedBills = data
     ?.map(({ id, values, value, billType, note, UserId, isDaily, User }) => {
@@ -60,9 +74,21 @@ const DailyPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getDaily({ isDaily: true }));
     dispatch(getUsers());
   }, []);
+  console.log(date.toLocaleString().split("/")[2]);
+  useEffect(() => {
+    dispatch(
+      getDaily({
+        isDaily: true,
+        date: {
+          month: date.toLocaleString().split("/")[0],
+          day: date.toLocaleString().split("/")[1],
+          year: date.toLocaleString().split("/")[2].split(",")[0],
+        },
+      })
+    );
+  }, [date]);
 
   const { dialog, setDialog, handleOpenAddDialog } = useTable(
     DAILY_ROW_INTIAL_VALUE
@@ -180,10 +206,17 @@ const DailyPage = () => {
       isField: true,
     },
   ];
+
   return (
     <>
       <PageLayout>
-        <PageHeading title="صفحة اليومية" />
+        <PageHeading
+          title="صفحة اليومية"
+          isDaily={true}
+          date={selectedDate}
+          onReduce={reduceDateHandler}
+          onIncrease={increaseDateHandler}
+        />
         <Box>
           <CustomTableHeading rows={{ ...yesterday, title: "الاساس" }} />
           <MyTable

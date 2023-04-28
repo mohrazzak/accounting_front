@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   TableContainer,
   Table,
@@ -11,14 +11,14 @@ import {
   TablePagination,
   IconButton,
   Typography,
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
 // import { AiFillDelete } from 'react-icons/ai';
-import { Delete as AiFillDelete, Edit as AiTwotoneEdit } from 'react-feather';
+import { Delete as AiFillDelete, Edit as AiTwotoneEdit } from "react-feather";
 
 // import { AiTwotoneEdit } from 'react-icons/ai';
-import ConfirmDialog from './ConfirmDialog';
-import { Link, useParams } from 'react-router-dom';
+import ConfirmDialog from "./ConfirmDialog";
+import { Link, useParams } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -31,17 +31,17 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
+  "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
-  transition: 'background-color 0.3s ease',
+  transition: "background-color 0.3s ease",
 
   // hide last border
-  '&:last-child td, &:last-child th': {
+  "&:last-child td, &:last-child th": {
     border: 0,
   },
-  '&:hover': {
-    backgroundColor: '#c7e0ff !important',
+  "&:hover": {
+    backgroundColor: "#c7e0ff !important",
   },
 }));
 
@@ -76,31 +76,31 @@ const MyTable = ({ COLUMNS, setDialog, deletedLabel, rows, dispatchers }) => {
   const columnsWithOptions = [
     ...COLUMNS,
     {
-      id: 'edit',
-      label: 'تعديل',
-      align: 'center',
-      minWidth: '40px',
+      id: "edit",
+      label: "تعديل",
+      align: "center",
+      minWidth: "40px",
     },
     {
-      id: 'delete',
-      label: 'حذف',
-      align: 'center',
-      minWidth: '40px',
+      id: "delete",
+      label: "حذف",
+      align: "center",
+      minWidth: "40px",
     },
   ];
 
   const options = [
     {
-      label: 'تعديل',
-      id: 'edit',
+      label: "تعديل",
+      id: "edit",
       icon: <AiTwotoneEdit />,
       onClick: (row) => {
         handleSelectEdit(row);
       },
     },
     {
-      label: 'حذف',
-      id: 'delete',
+      label: "حذف",
+      id: "delete",
       icon: <AiFillDelete />,
       onClick: (row) => {
         setOpenConfirm({ status: true, id: row.invoice ?? row.id });
@@ -110,22 +110,21 @@ const MyTable = ({ COLUMNS, setDialog, deletedLabel, rows, dispatchers }) => {
 
   const stylingFunction = (column, value, row) => {
     const { accountId, accountType, billType, id } = row;
-    console.log(id, row);
     const linkStyle = {
-      fontWeight: 'bold',
-      color: 'black',
+      fontWeight: "bold",
+      color: "black",
     };
     const moneyStyles = {
-      color: value >= 0 ? 'green' : 'tomato',
-      fontWeight: 'bold',
+      color: value >= 0 ? "green" : "tomato",
+      fontWeight: "bold",
     };
     switch (true) {
       case column.isBill:
         return (
           <Typography
             sx={{
-              color: row.billType === 'ادخال' ? 'green' : 'tomato',
-              fontWeight: 'bold',
+              color: row.billType === "ادخال" ? "green" : "tomato",
+              fontWeight: "bold",
             }}
           >
             {value}
@@ -135,56 +134,56 @@ const MyTable = ({ COLUMNS, setDialog, deletedLabel, rows, dispatchers }) => {
         return (
           <Typography
             sx={{
-              color: value >= 0 ? 'green' : 'tomato',
-              fontWeight: 'bold',
+              color: value >= 0 ? "green" : "tomato",
+              fontWeight: "bold",
             }}
           >
             {value}
           </Typography>
         );
-      case column.isInvoice && accountType === 'تاجر سوق':
+      case column.isInvoice && accountType === "تاجر سوق":
         return (
           <Link
             to={`/shops/${row.accountId}/invoices/${id}`}
             style={{
-              fontWeight: 'bold',
-              color: 'black',
+              fontWeight: "bold",
+              color: "black",
             }}
           >
             {value}
           </Link>
         );
-      case column.isInvoice && accountType === 'زبون':
+      case column.isInvoice && accountType === "زبون":
         return (
           <Link
             to={`/customers/${row.accountId}/invoices/${id}`}
             style={{
-              fontWeight: 'bold',
-              color: 'black',
+              fontWeight: "bold",
+              color: "black",
             }}
           >
             {value}
           </Link>
         );
-      case row.accountType === 'زبون' && column.isLink:
+      case row.accountType === "زبون" && column.isLink:
         return (
           <Link
             to={`/customers/${accountId}`}
             style={{
-              fontWeight: 'bold',
-              color: 'black',
+              fontWeight: "bold",
+              color: "black",
             }}
           >
             {value}
           </Link>
         );
-      case row.accountType === 'شريك' && column.isLink:
+      case row.accountType === "شريك" && column.isLink:
         return (
           <Link
             to={`/shops/${accountId}`}
             style={{
-              fontWeight: 'bold',
-              color: 'black',
+              fontWeight: "bold",
+              color: "black",
             }}
           >
             {value}
@@ -195,56 +194,56 @@ const MyTable = ({ COLUMNS, setDialog, deletedLabel, rows, dispatchers }) => {
           <Link
             to={`/customers/${row.accountId}/invoices/${id}`}
             style={{
-              fontWeight: 'bold',
-              color: 'black',
+              fontWeight: "bold",
+              color: "black",
             }}
           >
             {value}
           </Link>
         );
-      case accountType === 'تاجر سوق' && column.isLink:
+      case accountType === "تاجر سوق" && column.isLink:
         return (
           <Link
             to={`/shops/${accountId ?? id}`}
             style={{
-              fontWeight: 'bold',
-              color: 'black',
+              fontWeight: "bold",
+              color: "black",
             }}
           >
             {value}
           </Link>
         );
-      case accountType === 'شريك' && column.isLink:
+      case accountType === "شريك" && column.isLink:
         return (
           <Link
             to={`/withdrawals/${row.accountId}`}
             style={{
-              fontWeight: 'bold',
-              color: 'black',
+              fontWeight: "bold",
+              color: "black",
             }}
           >
             {value}
           </Link>
         );
-      case billType === 'سحوبات' && column.isLink:
+      case billType === "سحوبات" && column.isLink:
         return (
           <Link
             to={`/withdrawals/${row.userId}`}
             style={{
-              fontWeight: 'bold',
-              color: 'black',
+              fontWeight: "bold",
+              color: "black",
             }}
           >
             {value}
           </Link>
         );
-      case billType === 'مصروف' && column.isLink:
+      case billType === "مصروف" && column.isLink:
         return (
           <Link
             to={`${row.accountId}`}
             style={{
-              fontWeight: 'bold',
-              color: 'black',
+              fontWeight: "bold",
+              color: "black",
             }}
           >
             {value}
@@ -255,8 +254,8 @@ const MyTable = ({ COLUMNS, setDialog, deletedLabel, rows, dispatchers }) => {
           <Link
             to={`${accountId ?? id}`}
             style={{
-              fontWeight: 'bold',
-              color: 'black',
+              fontWeight: "bold",
+              color: "black",
             }}
           >
             {value}
@@ -267,8 +266,8 @@ const MyTable = ({ COLUMNS, setDialog, deletedLabel, rows, dispatchers }) => {
           <Link
             to={`invoices/${id}`}
             style={{
-              fontWeight: 'bold',
-              color: 'black',
+              fontWeight: "bold",
+              color: "black",
             }}
           >
             {value}
@@ -401,7 +400,7 @@ const MyTable = ({ COLUMNS, setDialog, deletedLabel, rows, dispatchers }) => {
                       <StyledTableCell key={option.id} align={option.align}>
                         <IconButton
                           aria-label={option.id}
-                          color={option.id === 'delete' ? 'error' : 'info'}
+                          color={option.id === "delete" ? "error" : "info"}
                           onClick={() => option.onClick(row)}
                         >
                           {option.icon}
