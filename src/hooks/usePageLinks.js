@@ -11,6 +11,8 @@ const dictionary = {
   daily: 'اليومية',
   transfer: 'التحويل',
   partners: 'الشركاء',
+  balance: 'الشخصي',
+  bills: 'للفواتير',
   // add more translations here
 };
 

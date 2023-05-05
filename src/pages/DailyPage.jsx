@@ -76,7 +76,6 @@ const DailyPage = () => {
   useEffect(() => {
     dispatch(getUsers());
   }, []);
-  console.log(date.toLocaleString().split("/")[2]);
   useEffect(() => {
     dispatch(
       getDaily({
@@ -105,7 +104,16 @@ const DailyPage = () => {
         note: row.note,
       };
       dispatch(addDaily(formattedRow)).then(() => {
-        dispatch(getDaily({ isDaily: true }));
+        dispatch(
+          getDaily({
+            isDaily: true,
+            date: {
+              month: date.toLocaleString().split("/")[0],
+              day: date.toLocaleString().split("/")[1],
+              year: date.toLocaleString().split("/")[2].split(",")[0],
+            },
+          })
+        );
       });
     },
     edit: (editedRow) => {
@@ -238,7 +246,7 @@ const DailyPage = () => {
             color="error"
             onClick={handleOpenAddDialog}
           >
-            {"اضافة فاتورة جديدة"}
+            {"إضافة فاتورة جديدة"}
           </Button>
         </Box>
         <MyDialog

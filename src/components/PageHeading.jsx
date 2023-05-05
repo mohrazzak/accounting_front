@@ -28,14 +28,16 @@ const PageHeading = ({ isDaily, title, date, onReduce, onIncrease }) => {
     "الجمعة",
     "السبت",
   ];
-  var delDateString =
-    days[date.getDay()] +
-    ", " +
-    date.getDate() +
-    " " +
-    months[date.getMonth()] +
-    ", " +
-    date.getFullYear();
+  var delDateString;
+  if (date)
+    delDateString =
+      days[date.getDay()] +
+      ", " +
+      date.getDate() +
+      " " +
+      months[date.getMonth()] +
+      ", " +
+      date.getFullYear();
 
   return (
     <>
