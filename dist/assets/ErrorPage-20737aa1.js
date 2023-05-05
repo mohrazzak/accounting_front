@@ -1,1 +1,0 @@
-import{u as o,j as s,a as r}from"./index-f69be7d7.js";function a(){const e=o();return console.error(e),s("div",{children:[r("h1",{children:"Oops!"}),r("p",{children:"Sorry, an unexpected error has occurred."}),r("p",{children:r("i",{children:e.statusText||e.message})})]})}export{a as default};
