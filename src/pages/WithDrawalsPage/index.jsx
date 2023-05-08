@@ -119,7 +119,7 @@ const WithdrawalsPage = () => {
     ...totalMoney,
   };
   useEffect(() => {
-    dispatch(getDaily());
+    dispatch(getDaily({ billType: 'سحوبات' }));
   }, []);
   return (
     <PageLayout title={`صفحة ${PAGE_TITLE}`}>
