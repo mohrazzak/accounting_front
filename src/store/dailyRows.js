@@ -24,7 +24,8 @@ export const getDaily = createAsyncThunk(
       queryString += `&month=${payload?.date?.month || new Date().getMonth()}`;
       queryString += `&day=${payload?.date?.day || new Date().getDate()}`;
       // }
-
+      if (payload?.billType) queryString += `&billType=${payload.billType}`;
+      console.log(queryString);
       const res = await api.get(`/daily?${queryString}`);
       console.log(res.data, 'requested');
       return res.data;
