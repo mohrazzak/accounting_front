@@ -125,8 +125,8 @@ const index = () => {
       dispatch(
         editDaily({
           ...editedDaily,
-          value: parseFloat(editedDaily.value),
-          values: parseFloat(editedDaily.values),
+          value: parseFloat(editedDaily.value.toFixed(2)),
+          values: parseFloat(editedDaily.values.toFixed(2)),
           userId: editedDaily.UserId,
         })
       ).then(() => dispatch(getUser(params.id)));

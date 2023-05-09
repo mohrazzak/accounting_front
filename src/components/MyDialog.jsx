@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import * as Yup from "yup";
-import { useFormik } from "formik";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import FormHelperText from "@mui/material/FormHelperText";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import ListSubheader from "@mui/material/ListSubheader";
+import React, { useState, useEffect } from 'react';
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import ListSubheader from '@mui/material/ListSubheader';
 
 export default function MyDialog({
   title,
@@ -40,8 +40,8 @@ export default function MyDialog({
       if (!dialog.editing)
         dispatchers.add({
           ...values,
-          value: parseFloat(values.value),
-          values: parseFloat(values.values),
+          value: parseFloat(values.value.toFixed(2)),
+          values: parseFloat(values.values.toFixed(2)),
           // invoice: (Math.floor(Math.random() * 91) + 10).toString(),
         });
       else {
@@ -65,10 +65,10 @@ export default function MyDialog({
   }, [dialog.editing]);
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div style={{ textAlign: 'center' }}>
       <form autoComplete="off">
         <Dialog open={dialog.status} onClose={formik.handleReset}>
-          <DialogTitle textAlign="center" sx={{ fontweight: "bold" }}>
+          <DialogTitle textAlign="center" sx={{ fontweight: 'bold' }}>
             {title}
           </DialogTitle>
           <DialogContent>
@@ -114,7 +114,7 @@ export default function MyDialog({
                         {checkIfRelatedToUsers(field.options)
                           ? [
                               field.options.map((option) => {
-                                if (option.type === "مصروف")
+                                if (option.type === 'مصروف')
                                   return (
                                     <MenuItem key={option.id} value={option.id}>
                                       {option.value}
@@ -122,16 +122,16 @@ export default function MyDialog({
                                   );
                               }),
                               <ListSubheader
-                                key={"customers-select"}
+                                key={'customers-select'}
                                 sx={{
-                                  borderTop: "2px solid black",
-                                  color: "GrayText",
+                                  borderTop: '2px solid black',
+                                  color: 'GrayText',
                                 }}
                               >
-                                {"- الزبائن"}
+                                {'- الزبائن'}
                               </ListSubheader>,
                               field.options.map((option) => {
-                                if (option.type === "زبون")
+                                if (option.type === 'زبون')
                                   return (
                                     <MenuItem key={option.id} value={option.id}>
                                       {option.value}
@@ -139,16 +139,16 @@ export default function MyDialog({
                                   );
                               }),
                               <ListSubheader
-                                key={"shops-select"}
+                                key={'shops-select'}
                                 sx={{
-                                  borderTop: "2px solid black",
-                                  color: "GrayText",
+                                  borderTop: '2px solid black',
+                                  color: 'GrayText',
                                 }}
                               >
-                                {"- تجار السوق"}
+                                {'- تجار السوق'}
                               </ListSubheader>,
                               field.options.map((option) => {
-                                if (option.type === "تاجر سوق")
+                                if (option.type === 'تاجر سوق')
                                   return (
                                     <MenuItem key={option.id} value={option.id}>
                                       {option.value}
@@ -156,16 +156,16 @@ export default function MyDialog({
                                   );
                               }),
                               <ListSubheader
-                                key={"partner-select"}
+                                key={'partner-select'}
                                 sx={{
-                                  borderTop: "2px solid black",
-                                  color: "GrayText",
+                                  borderTop: '2px solid black',
+                                  color: 'GrayText',
                                 }}
                               >
-                                {"- الشركاء"}
+                                {'- الشركاء'}
                               </ListSubheader>,
                               field.options.map((option) => {
-                                if (option.type === "شريك")
+                                if (option.type === 'شريك')
                                   return (
                                     <MenuItem key={option.id} value={option.id}>
                                       {option.value}
@@ -226,7 +226,7 @@ export default function MyDialog({
               color="success"
               variant="outlined"
             >
-              {dialog.editing ? "تعديل" : "انشاء"}
+              {dialog.editing ? 'تعديل' : 'انشاء'}
             </Button>
           </DialogActions>
         </Dialog>

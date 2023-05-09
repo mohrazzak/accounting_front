@@ -21,7 +21,7 @@ export const addBillItem = createAsyncThunk(
         `/bills/items/${payload.billId}?shop=${payload.shop ?? false}`,
         {
           ...payload.row,
-          count: parseFloat(payload.row.count, 10),
+          count: parseFloat(payload.row.count.toFixed(2), 10),
         }
       );
       return res.data;
@@ -40,7 +40,7 @@ export const editBillItem = createAsyncThunk(
         }`,
         {
           ...payload.row,
-          count: parseFloat(payload.row.count, 10),
+          count: parseFloat(payload.row.count.toFixed(2), 10),
         }
       );
       return res.data;

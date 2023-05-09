@@ -98,8 +98,8 @@ const DailyPage = () => {
       const formattedRow = {
         isDaily: true,
         userId: row.accountId, // its id
-        value: parseFloat(row.value, 10),
-        values: parseFloat(row.values, 10),
+        value: parseFloat(row.value.toFixed(2)),
+        values: parseFloat(row.values.toFixed(2)),
         billType: row.billType,
         note: row.note,
       };
@@ -120,8 +120,8 @@ const DailyPage = () => {
       const formattedRow = {
         isDaily: true,
         userId: editedRow.accountId,
-        value: parseFloat(editedRow.value, 10),
-        values: parseFloat(editedRow.values, 10),
+        value: parseFloat(editedRow.value.toFixed(2), 10),
+        values: parseFloat(editedRow.values.toFixed(2), 10),
         billType: editedRow.billType,
         note: editedRow.note,
         id: editedRow.id,

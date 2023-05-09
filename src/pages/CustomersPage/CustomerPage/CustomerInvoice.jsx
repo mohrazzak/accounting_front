@@ -61,9 +61,12 @@ const CustomerInvoice = () => {
     ...billItem,
     ProductId: billItem.ProductId,
     name: billItem.Product.name,
-    totalValue: parseFloat(billItem.value, 10) * parseFloat(billItem.count, 10),
+    totalValue:
+      parseFloat(billItem.value.toFixed(2), 10) *
+      parseFloat(billItem.count.toFixed(2), 10),
     totalValues:
-      parseFloat(billItem.values, 10) * parseFloat(billItem.count, 10),
+      parseFloat(billItem.values.toFixed(2), 10) *
+      parseFloat(billItem.count.toFixed(2), 10),
   }));
   const productsRows = useSelector((state) => state.products.data);
   const products = productsRows.map((row) => ({
@@ -137,7 +140,7 @@ const CustomerInvoice = () => {
       dispatch(
         addBillItem({
           billId: invoiceId,
-          row: { count: parseFloat(row.count, 10), ...row },
+          row: { count: parseFloat(row.count.toFixed(2), 10), ...row },
         })
       ).then(() => dispatch(getBill(invoiceId)));
     },
