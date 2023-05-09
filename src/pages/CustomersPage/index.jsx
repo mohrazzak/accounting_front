@@ -104,11 +104,11 @@ const DailyPage = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
   let rows = users.data.filter((customer) => customer.userType === 'زبون');
-  rows = rows.map((row) => ({
-    ...row,
-    accountBalance: row.accountBalance.toFixed(2),
-    accountBalanceValues: row.accountBalanceValues.toFixed(2),
-  }));
+  // rows = rows.map((row) => ({
+  //   ...row,
+  //   accountBalance: row.accountBalance.toFixed(2),
+  //   accountBalanceValues: row.accountBalanceValues.toFixed(2),
+  // }));
 
   const dispatchers = {
     add: (customer) => dispatch(addUser({ ...customer, userType: 'زبون' })),
