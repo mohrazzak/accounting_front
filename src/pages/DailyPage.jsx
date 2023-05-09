@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import MyTable from "../components/MyTable";
-import PageLayout from "../components/PageLayout";
-import MyDialog from "../components/MyDialog";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import CustomTableHeading from "../components/CustomTableHeading";
-import useTable from "../hooks/useTable";
-import * as Yup from "yup";
+import React, { useEffect, useState } from 'react';
+import MyTable from '../components/MyTable';
+import PageLayout from '../components/PageLayout';
+import MyDialog from '../components/MyDialog';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import CustomTableHeading from '../components/CustomTableHeading';
+import useTable from '../hooks/useTable';
+import * as Yup from 'yup';
 import {
   addDaily,
   addDailyRow,
@@ -14,24 +14,24 @@ import {
   deleteDailyRow,
   editDaily,
   editDailyRow,
-} from "../store/dailyRows";
-import PageHeading from "../components/PageHeading";
-import axios from "../api";
-import { useSelector, useDispatch } from "react-redux";
-import { getDaily } from "../store/dailyRows";
-import Swal from "sweetalert2";
-import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
-import { getUsers } from "../store/users";
-const PAGE_TITLE = "اليومية";
+} from '../store/dailyRows';
+import PageHeading from '../components/PageHeading';
+import axios from '../api';
+import { useSelector, useDispatch } from 'react-redux';
+import { getDaily } from '../store/dailyRows';
+import Swal from 'sweetalert2';
+import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
+import { getUsers } from '../store/users';
+const PAGE_TITLE = 'اليومية';
 
 const DAILY_ROW_INTIAL_VALUE = {
-  accountId: "",
-  id: "",
-  accountName: "",
-  value: "",
-  values: "",
-  billType: "",
-  note: "",
+  accountId: '',
+  id: '',
+  accountName: '',
+  value: '',
+  values: '',
+  billType: '',
+  note: '',
 };
 
 const DailyPage = () => {
@@ -81,9 +81,9 @@ const DailyPage = () => {
       getDaily({
         isDaily: true,
         date: {
-          month: date.toLocaleString().split("/")[0],
-          day: date.toLocaleString().split("/")[1],
-          year: date.toLocaleString().split("/")[2].split(",")[0],
+          month: date.toLocaleString().split('/')[0],
+          day: date.toLocaleString().split('/')[1],
+          year: date.toLocaleString().split('/')[2].split(',')[0],
         },
       })
     );
@@ -98,8 +98,8 @@ const DailyPage = () => {
       const formattedRow = {
         isDaily: true,
         userId: row.accountId, // its id
-        value: parseFloat(row.value.toFixed(2)),
-        values: parseFloat(row.values.toFixed(2)),
+        value: parseFloat(row.value).toFixed(2),
+        values: parseFloat(row.values).toFixed(2),
         billType: row.billType,
         note: row.note,
       };
@@ -108,9 +108,9 @@ const DailyPage = () => {
           getDaily({
             isDaily: true,
             date: {
-              month: date.toLocaleString().split("/")[0],
-              day: date.toLocaleString().split("/")[1],
-              year: date.toLocaleString().split("/")[2].split(",")[0],
+              month: date.toLocaleString().split('/')[0],
+              day: date.toLocaleString().split('/')[1],
+              year: date.toLocaleString().split('/')[2].split(',')[0],
             },
           })
         );
@@ -120,8 +120,8 @@ const DailyPage = () => {
       const formattedRow = {
         isDaily: true,
         userId: editedRow.accountId,
-        value: parseFloat(editedRow.value.toFixed(2), 10),
-        values: parseFloat(editedRow.values.toFixed(2), 10),
+        value: parseFloat(editedRow.value, 10).toFixed(2),
+        values: parseFloat(editedRow.values, 10).toFixed(2),
         billType: editedRow.billType,
         note: editedRow.note,
         id: editedRow.id,
@@ -136,11 +136,11 @@ const DailyPage = () => {
   };
 
   const validationSchema = Yup.object({
-    accountId: Yup.string().required("يرجى إدخال اسم الحساب"),
-    value: Yup.number().required("يرجى إدخال المبلغ"),
-    values: Yup.number().required("يرجى إدخال القيمة"),
+    accountId: Yup.string().required('يرجى إدخال اسم الحساب'),
+    value: Yup.number().required('يرجى إدخال المبلغ'),
+    values: Yup.number().required('يرجى إدخال القيمة'),
     note: Yup.string(),
-    billType: Yup.string().required("يرجى اختيار نوع الفاتورة"),
+    billType: Yup.string().required('يرجى اختيار نوع الفاتورة'),
   });
   const formattedUsers = users?.data?.map((user) => ({
     value: user.name,
@@ -150,67 +150,67 @@ const DailyPage = () => {
 
   const COLUMNS = [
     {
-      id: "id",
-      label: "رقم الفاتورة",
+      id: 'id',
+      label: 'رقم الفاتورة',
       minWidth: 70,
-      align: "center",
+      align: 'center',
       isField: false,
       isLink: true,
       isInvoice: true,
     },
     {
-      id: "accountId",
-      label: "ايدي الحساب",
+      id: 'accountId',
+      label: 'ايدي الحساب',
       minWidth: 80,
-      align: "center",
+      align: 'center',
       isField: true,
       isLink: true,
       options: formattedUsers,
       required: true,
     },
     {
-      id: "accountName",
-      label: "اسم الحساب",
+      id: 'accountName',
+      label: 'اسم الحساب',
       minWidth: 150,
-      align: "left",
+      align: 'left',
     },
     {
-      id: "value",
-      label: "المبلغ",
+      id: 'value',
+      label: 'المبلغ',
       minWidth: 100,
-      align: "center",
-      format: (value) => value.toLocaleString("en-US"),
+      align: 'center',
+      format: (value) => value.toLocaleString('en-US'),
       isField: true,
       required: true,
       isBill: true,
     },
     {
-      id: "values",
-      label: "القيمة",
+      id: 'values',
+      label: 'القيمة',
       minWidth: 50,
-      align: "center",
-      format: (value) => value.toLocaleString("en-US"),
+      align: 'center',
+      format: (value) => value.toLocaleString('en-US'),
       isField: true,
       isBill: true,
     },
     {
-      id: "billType",
-      label: "نوع الفاتورة",
-      type: "select",
+      id: 'billType',
+      label: 'نوع الفاتورة',
+      type: 'select',
       options: [
-        { value: "ادخال", id: "ادخال" },
-        { value: "صادر", id: "صادر" },
-        { value: "مصروف", id: "مصروف" },
-        { value: "سحوبات", id: "سحوبات" },
+        { value: 'ادخال', id: 'ادخال' },
+        { value: 'صادر', id: 'صادر' },
+        { value: 'مصروف', id: 'مصروف' },
+        { value: 'سحوبات', id: 'سحوبات' },
       ],
       required: true,
       isField: true,
     },
     {
-      id: "note",
-      label: "ملاحظة",
+      id: 'note',
+      label: 'ملاحظة',
       minWidth: 170,
-      align: "left",
+      align: 'left',
       isField: true,
     },
   ];
@@ -226,7 +226,7 @@ const DailyPage = () => {
           onIncrease={increaseDateHandler}
         />
         <Box>
-          <CustomTableHeading rows={{ ...yesterday, title: "الاساس" }} />
+          <CustomTableHeading rows={{ ...yesterday, title: 'الاساس' }} />
           <MyTable
             COLUMNS={COLUMNS}
             deletedLabel={`فاتورة ${PAGE_TITLE}`}
@@ -234,19 +234,19 @@ const DailyPage = () => {
             rows={formattedBills}
             dispatchers={dispatchers}
           />
-          <CustomTableHeading rows={{ ...today, title: "المدور" }} />
+          <CustomTableHeading rows={{ ...today, title: 'المدور' }} />
           <Button
             variant="contained"
             sx={{
-              height: "60px",
-              margin: "2rem auto",
-              display: "block",
-              width: "50%",
+              height: '60px',
+              margin: '2rem auto',
+              display: 'block',
+              width: '50%',
             }}
             color="error"
             onClick={handleOpenAddDialog}
           >
-            {"إضافة فاتورة جديدة"}
+            {'إضافة فاتورة جديدة'}
           </Button>
         </Box>
         <MyDialog

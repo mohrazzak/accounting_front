@@ -1,52 +1,52 @@
-import React, { useEffect, useState } from "react";
-import MyTable from "../../../components/MyTable";
-import PageLayout from "../../../components/PageLayout";
-import MyDialog from "../../../components/MyDialog";
-import Box from "@mui/material/Box";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import useTable from "../../../hooks/useTable";
-import { useSelector } from "react-redux";
-import * as Yup from "yup";
+import React, { useEffect, useState } from 'react';
+import MyTable from '../../../components/MyTable';
+import PageLayout from '../../../components/PageLayout';
+import MyDialog from '../../../components/MyDialog';
+import Box from '@mui/material/Box';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import useTable from '../../../hooks/useTable';
+import { useSelector } from 'react-redux';
+import * as Yup from 'yup';
 // import { addCustomer, deleteCustomer, editCustomer } from '../store/users';
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 import {
   addProduct,
   deleteProduct,
   editProduct,
   getProducts,
-} from "../../../store/products";
-import Logs from "../../../components/Logs";
-import PageHeading from "../../../components/PageHeading";
-import TableSubHeader from "../../../components/TableSubHeader";
-import LogsTable from "../../../components/LogsTable";
-import { Link, useParams } from "react-router-dom";
+} from '../../../store/products';
+import Logs from '../../../components/Logs';
+import PageHeading from '../../../components/PageHeading';
+import TableSubHeader from '../../../components/TableSubHeader';
+import LogsTable from '../../../components/LogsTable';
+import { Link, useParams } from 'react-router-dom';
 import {
   addBillItem,
   deleteBillItem,
   editBillItem,
   getBill,
-} from "../../../store/bill";
-import Grid from "@mui/material/Grid";
-const PAGE_TITLE = "فاتورة رقم";
+} from '../../../store/bill';
+import Grid from '@mui/material/Grid';
+const PAGE_TITLE = 'فاتورة رقم';
 
 const DAILY_ROW_INTIAL_VALUE = {
-  ProductId: "",
-  id: "",
+  ProductId: '',
+  id: '',
   count: 0,
   value: 0,
   values: 0,
   // totalValue: '',
   // totalValues: '',
-  note: "",
+  note: '',
 };
 
 const validationSchema = Yup.object({
-  ProductId: Yup.number().required("يرجى إدخال اسم المنتج"),
-  count: Yup.number().required("يرجى إدخال الكمية المتاحة"),
-  value: Yup.number().required("يرجى إدخال مبلغ القطعة الواحدة"),
-  values: Yup.number().required("يرجى إدخال قيمة القطعة الواحدة"),
+  ProductId: Yup.number().required('يرجى إدخال اسم المنتج'),
+  count: Yup.number().required('يرجى إدخال الكمية المتاحة'),
+  value: Yup.number().required('يرجى إدخال مبلغ القطعة الواحدة'),
+  values: Yup.number().required('يرجى إدخال قيمة القطعة الواحدة'),
   note: Yup.string(),
 });
 
@@ -61,12 +61,12 @@ const CustomerInvoice = () => {
     ...billItem,
     ProductId: billItem.ProductId,
     name: billItem.Product.name,
-    totalValue:
-      parseFloat(billItem.value.toFixed(2), 10) *
-      parseFloat(billItem.count.toFixed(2), 10),
-    totalValues:
-      parseFloat(billItem.values.toFixed(2), 10) *
-      parseFloat(billItem.count.toFixed(2), 10),
+    totalValue: (
+      parseFloat(billItem.value, 10) * parseFloat(billItem.count, 10)
+    ).toFixed(2),
+    totalValues: (
+      parseFloat(billItem.values, 10) * parseFloat(billItem.count, 10)
+    ).toFixed(2),
   }));
   const productsRows = useSelector((state) => state.products.data);
   const products = productsRows.map((row) => ({
@@ -75,62 +75,62 @@ const CustomerInvoice = () => {
   }));
   const COLUMNS = [
     {
-      id: "ProductId",
-      label: "رقم المنتج",
+      id: 'ProductId',
+      label: 'رقم المنتج',
       minWidth: 80,
-      align: "center",
+      align: 'center',
       options: products,
       isField: true,
     },
     {
-      id: "name",
-      label: "اسم المنتج",
+      id: 'name',
+      label: 'اسم المنتج',
       minWidth: 150,
-      align: "left",
+      align: 'left',
       required: true,
     },
     {
-      id: "count",
-      label: "العدد",
+      id: 'count',
+      label: 'العدد',
       minWidth: 100,
-      align: "center",
+      align: 'center',
       isField: true,
       required: true,
     },
     {
-      id: "value",
-      label: "المبلغ للواحدة",
+      id: 'value',
+      label: 'المبلغ للواحدة',
       minWidth: 100,
-      align: "center",
+      align: 'center',
       isField: true,
     },
     {
-      id: "values",
-      label: "القيمة للواحدة",
+      id: 'values',
+      label: 'القيمة للواحدة',
       minWidth: 100,
-      align: "center",
+      align: 'center',
       isField: true,
     },
     {
-      id: "totalValue",
-      label: "المبلغ الاجمالي",
+      id: 'totalValue',
+      label: 'المبلغ الاجمالي',
       minWidth: 100,
-      align: "center",
+      align: 'center',
       isField: false,
     },
     {
-      id: "totalValues",
-      label: "القيمة الاجمالية",
+      id: 'totalValues',
+      label: 'القيمة الاجمالية',
       minWidth: 100,
-      align: "center",
+      align: 'center',
       isField: false,
     },
 
     {
-      id: "note",
-      label: "ملاحظة",
+      id: 'note',
+      label: 'ملاحظة',
       minWidth: 100,
-      align: "center",
+      align: 'center',
       isField: true,
     },
   ];
@@ -140,7 +140,7 @@ const CustomerInvoice = () => {
       dispatch(
         addBillItem({
           billId: invoiceId,
-          row: { count: parseFloat(row.count.toFixed(2), 10), ...row },
+          row: { count: parseInt(row.count), ...row },
         })
       ).then(() => dispatch(getBill(invoiceId)));
     },
@@ -167,65 +167,65 @@ const CustomerInvoice = () => {
         <Grid
           item
           xs={12}
-          sx={{ display: "flex", justifyContent: "space-between" }}
+          sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <Grid container>
             <Grid
               item
               xs={6}
-              sx={{ display: "flex", justifyContent: "space-between" }}
+              sx={{ display: 'flex', justifyContent: 'space-between' }}
             >
               <Typography variant="body1">ملاحظة الفاتورة</Typography>
-              <Typography variant="body1">{bill.note || "لايوجد"}</Typography>
+              <Typography variant="body1">{bill.note || 'لايوجد'}</Typography>
             </Grid>
           </Grid>
         </Grid>
         <Grid
           item
           xs={12}
-          sx={{ display: "flex", justifyContent: "space-between" }}
+          sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <Grid container>
             <Grid
               item
               xs={6}
-              sx={{ display: "flex", justifyContent: "space-between" }}
+              sx={{ display: 'flex', justifyContent: 'space-between' }}
             >
               <Typography variant="body1">اجمالي المبلغ</Typography>
-              <Typography variant="body1">{bill.value || "لايوجد"}</Typography>
+              <Typography variant="body1">{bill.value || 'لايوجد'}</Typography>
             </Grid>
           </Grid>
         </Grid>
         <Grid
           item
           xs={12}
-          sx={{ display: "flex", justifyContent: "space-between" }}
+          sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <Grid container>
             <Grid
               item
               xs={6}
-              sx={{ display: "flex", justifyContent: "space-between" }}
+              sx={{ display: 'flex', justifyContent: 'space-between' }}
             >
               <Typography variant="body1">اجمالي القيمة</Typography>
-              <Typography variant="body1">{bill.values || "لايوجد"}</Typography>
+              <Typography variant="body1">{bill.values || 'لايوجد'}</Typography>
             </Grid>
           </Grid>
         </Grid>
         <Grid
           item
           xs={12}
-          sx={{ display: "flex", justifyContent: "space-between" }}
+          sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <Grid container>
             <Grid
               item
               xs={6}
-              sx={{ display: "flex", justifyContent: "space-between" }}
+              sx={{ display: 'flex', justifyContent: 'space-between' }}
             >
               <Typography variant="body1">نوع الفاتورة</Typography>
               <Typography variant="body1">
-                {bill.billType || "لايوجد"}
+                {bill.billType || 'لايوجد'}
               </Typography>
             </Grid>
           </Grid>
@@ -233,17 +233,17 @@ const CustomerInvoice = () => {
         <Grid
           item
           xs={12}
-          sx={{ display: "flex", justifyContent: "space-between" }}
+          sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <Grid container>
             <Grid
               item
               xs={6}
-              sx={{ display: "flex", justifyContent: "space-between" }}
+              sx={{ display: 'flex', justifyContent: 'space-between' }}
             >
               <Typography variant="body1">تاريخ الاصدار</Typography>
               <Typography variant="body1">
-                {bill.createdAt || "لايوجد"}
+                {bill.createdAt || 'لايوجد'}
               </Typography>
             </Grid>
           </Grid>
@@ -259,19 +259,19 @@ const CustomerInvoice = () => {
           validationSchema={validationSchema}
           dispatchers={dispatchers}
         />
-        {bill.billType !== "ادخال" && (
+        {bill.billType !== 'ادخال' && (
           <Button
             variant="contained"
             sx={{
-              height: "60px",
-              margin: "2rem auto",
-              display: "block",
-              width: "50%",
+              height: '60px',
+              margin: '2rem auto',
+              display: 'block',
+              width: '50%',
             }}
             color="error"
             onClick={handleOpenAddDialog}
           >
-            {"إضافة منتج للفاتورة"}
+            {'إضافة منتج للفاتورة'}
           </Button>
         )}
       </Box>
