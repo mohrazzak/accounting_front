@@ -111,8 +111,8 @@ const ExpensesPage = () => {
     edit: (editedRow) => {
       const formattedRow = {
         userId: editedRow.userId,
-        value: parseFloat(editedRow.value, 10).toFixed(2),
-        values: parseFloat(editedRow.values, 10).toFixed(2),
+        value: Number(parseFloat(editedRow.value, 10).toFixed(2)),
+        values: Number(parseFloat(editedRow.values, 10).toFixed(2)),
         billType: editedRow.billType,
         note: editedRow.note,
         id: editedRow.id,

@@ -61,9 +61,11 @@ const CustomerInvoice = () => {
     ...billItem,
     ProductId: billItem.ProductId,
     name: billItem.Product.name,
-    totalValue: (
-      parseFloat(billItem.value, 10) * parseFloat(billItem.count, 10)
-    ).toFixed(2),
+    totalValue: Number(
+      (parseFloat(billItem.value, 10) * parseFloat(billItem.count, 10)).toFixed(
+        2
+      )
+    ),
     totalValues: (
       parseFloat(billItem.values, 10) * parseFloat(billItem.count, 10)
     ).toFixed(2),

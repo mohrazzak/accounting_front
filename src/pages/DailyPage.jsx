@@ -22,6 +22,9 @@ import { getDaily } from '../store/dailyRows';
 import Swal from 'sweetalert2';
 import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
 import { getUsers } from '../store/users';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ar-sa';
+
 const PAGE_TITLE = 'اليومية';
 
 const DAILY_ROW_INTIAL_VALUE = {
@@ -38,19 +41,17 @@ const DailyPage = () => {
   const { data, yesterday, today, isLoading, isSuccess } = useSelector(
     (state) => state.dailyRows
   );
-
-  const [date, setDate] = useState(new Date());
-  const currentDate = date || Date.now();
-  var selectedDate = new Date(currentDate);
-
+  dayjs.locale('ar-sa');
+  const [date, setDate] = useState(dayjs());
+  const currentDate = date || dayjs();
+  var selectedDate = dayjs(currentDate);
+  dayjs.locale('ar');
   const reduceDateHandler = () => {
-    const oneDay = 24 * 60 * 60 * 1000; // one day in milliseconds
-    const newDate = new Date(date.getTime() - oneDay);
+    const newDate = dayjs(date).subtract(1, 'day');
     setDate(newDate);
   };
   const increaseDateHandler = () => {
-    const oneDay = 24 * 60 * 60 * 1000; // one day in milliseconds
-    const newDate = new Date(date.getTime() + oneDay);
+    const newDate = dayjs(date).add(1, 'day');
     setDate(newDate);
   };
   const users = useSelector((state) => state.users);
@@ -81,9 +82,9 @@ const DailyPage = () => {
       getDaily({
         isDaily: true,
         date: {
-          month: date.toLocaleString().split('/')[0],
-          day: date.toLocaleString().split('/')[1],
-          year: date.toLocaleString().split('/')[2].split(',')[0],
+          month: date.format('M'),
+          day: date.format('D'),
+          year: date.format('YYYY'),
         },
       })
     );
@@ -98,8 +99,8 @@ const DailyPage = () => {
       const formattedRow = {
         isDaily: true,
         userId: row.accountId, // its id
-        value: parseFloat(row.value).toFixed(2),
-        values: parseFloat(row.values).toFixed(2),
+        value: Number(parseFloat(row.value).toFixed(2)),
+        values: Number(parseFloat(row.values).toFixed(2)),
         billType: row.billType,
         note: row.note,
       };
@@ -108,9 +109,9 @@ const DailyPage = () => {
           getDaily({
             isDaily: true,
             date: {
-              month: date.toLocaleString().split('/')[0],
-              day: date.toLocaleString().split('/')[1],
-              year: date.toLocaleString().split('/')[2].split(',')[0],
+              month: date.format('M'),
+              day: date.format('D'),
+              year: date.format('YYYY'),
             },
           })
         );
@@ -120,8 +121,8 @@ const DailyPage = () => {
       const formattedRow = {
         isDaily: true,
         userId: editedRow.accountId,
-        value: parseFloat(editedRow.value, 10).toFixed(2),
-        values: parseFloat(editedRow.values, 10).toFixed(2),
+        value: Number(parseFloat(editedRow.value, 10).toFixed(2)),
+        values: Number(parseFloat(editedRow.values, 10).toFixed(2)),
         billType: editedRow.billType,
         note: editedRow.note,
         id: editedRow.id,
@@ -221,7 +222,7 @@ const DailyPage = () => {
         <PageHeading
           title="صفحة اليومية"
           isDaily={true}
-          date={selectedDate}
+          date={selectedDate.toDate()}
           onReduce={reduceDateHandler}
           onIncrease={increaseDateHandler}
         />

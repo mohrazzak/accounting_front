@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../api';
-
+import dayjs from 'dayjs';
 export const getDaily = createAsyncThunk(
   'dailyRows/get',
   async (payload, thunkAPI) => {
@@ -20,9 +20,9 @@ export const getDaily = createAsyncThunk(
       }
 
       // if (payload?.date) {
-      queryString += `&year=${payload?.date?.year || new Date().getFullYear()}`;
-      queryString += `&month=${payload?.date?.month || new Date().getMonth()}`;
-      queryString += `&day=${payload?.date?.day || new Date().getDate()}`;
+      queryString += `&year=${payload?.date?.year || dayjs().year()}`;
+      queryString += `&month=${payload?.date?.month || dayjs().month()}`;
+      queryString += `&day=${payload?.date?.day || dayjs().date()}`;
       // }
       if (payload?.billType) queryString += `&billType=${payload.billType}`;
       console.log(queryString);

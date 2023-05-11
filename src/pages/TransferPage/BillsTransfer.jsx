@@ -58,9 +58,9 @@ const BalanceTransfer = () => {
               values.value = values.values * values.price || 0;
             }
             if (
-              parseFloat(values.values, 10).toFixed(2) === 0 ||
-              parseFloat(values.value, 10).toFixed(2) === 0 ||
-              parseFloat(values.price, 10).toFixed(2) === 0
+              Number(parseFloat(values.values, 10).toFixed(2)) === 0 ||
+              Number(parseFloat(values.value, 10).toFixed(2)) === 0 ||
+              Number(parseFloat(values.price, 10).toFixed(2)) === 0
             ) {
               Swal.fire('حدث خطأ', 'لا يمكنك التحويل بقيم صفرية', 'error');
               console.log(values);

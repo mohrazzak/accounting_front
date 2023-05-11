@@ -73,8 +73,8 @@ export default function BillDialog({
       if (!dialog.editing)
         dispatchers.add({
           ...values,
-          value: parseFloat(values.value).toFixed(2),
-          values: parseFloat(values.values).toFixed(2),
+          value: Number(parseFloat(values.value).toFixed(2)),
+          values: Number(parseFloat(values.values).toFixed(2)),
           // invoice: (Math.floor(Math.random() * 91) + 10).toString(),
         });
       else {
