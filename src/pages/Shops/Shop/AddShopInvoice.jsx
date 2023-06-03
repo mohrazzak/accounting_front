@@ -14,12 +14,9 @@ import Typography from '@mui/material/Typography';
 
 import { TextField, Select } from 'formik-material-ui';
 
-import {
-  FormControl,
-  InputLabel,
-  TextField as MUI_TextField,
-  MenuItem,
-} from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import MUI_TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
 
 import { object, number, string, array } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';

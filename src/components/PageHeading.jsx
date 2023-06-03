@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { ArrowLeft, ArrowRight } from 'react-feather';
-import { IconButton } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 
 const PageHeading = ({ isDaily, title, date, onReduce, onIncrease }) => {
   var months = [

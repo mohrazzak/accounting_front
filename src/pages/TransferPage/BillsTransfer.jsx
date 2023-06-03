@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 import api from '../../api';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUsers } from '../../store/users';
-import { ListSubheader } from '@mui/material';
+import ListSubheader from '@mui/material/ListSubheader';
 
 const BalanceTransfer = () => {
   const users = useSelector((state) => state.users.data);

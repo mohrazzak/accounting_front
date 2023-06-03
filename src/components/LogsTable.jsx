@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import {
-  TableContainer,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  tableCellClasses,
-  TableCell,
-  Paper,
-  TablePagination,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableBody from '@mui/material/TableBody';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TablePagination from '@mui/material/TablePagination';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import { tableCellClasses } from '@mui/material/TableCell';
+
 import { styled } from '@mui/material/styles';
 // import { AiFillDelete } from 'react-icons/ai';
 import { Delete as AiFillDelete, Edit as AiTwotoneEdit } from 'react-feather';
